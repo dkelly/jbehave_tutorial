@@ -5,24 +5,38 @@ import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
 
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
+
+import com.macadamian.jbehave_tutorial.Machine;
+import com.macadamian.jbehave_tutorial.Product;
 
 public class PurchasingScenarioSteps {
+    private Machine _machine = new Machine();
+    private Product _result;
+    private String _product;
+    private double _amount;
+
     @Given("$product is in stock")
     public void setInStock(String product) {
+        _product = product;
     }
 
     @When("the Customer deposits $amount")
     public void deposit(double amount) {
+        _amount = amount;
     }
 
     @When("the Customer presses the buy button")
     public void pressedBuy() {
+        _result = _machine.buy(_product, _amount);
     }
 
     @Then("the machine should dispense $expectedProduct")
     public void verifyProduct(String expectedProduct) {
+        assertThat(_result, is(notNullValue()));
+        assertThat(_result.name(), is(equalTo(expectedProduct)));
     }
 }

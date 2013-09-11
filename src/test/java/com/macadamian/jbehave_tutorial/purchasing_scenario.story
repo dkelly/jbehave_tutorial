@@ -9,7 +9,7 @@ When the Customer presses the buy button
 Then the machine should dispense coke
 
 Scenario: Basic purchase of fanta
-Given coke is in stock
+Given fanta is in stock
 When the Customer deposits .75
 When the Customer presses the buy button
 Then the machine should dispense fanta
