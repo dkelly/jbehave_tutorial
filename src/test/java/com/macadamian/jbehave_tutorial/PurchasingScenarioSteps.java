@@ -21,10 +21,12 @@ public class PurchasingScenarioSteps {
 
     @Given("$product is in stock")
     public void setInStock(String product) {
+        _machine.stock(product, true);
     }
 
     @Given("$product is not in stock")
     public void setNotInStock(String product) {
+        _machine.stock(product, false);
     }
 
     @When("the Customer deposits $amount")
