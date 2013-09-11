@@ -1,0 +1,2 @@
+* when writing the first scenario, realized that the pending code was terrible
+* examples required named parameters, ugh
