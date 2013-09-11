@@ -25,3 +25,9 @@ Given fanta is in stock
 When the Customer deposits .25
 When the Customer presses the buy fanta button
 Then the machine should not dispense
+
+Scenario: Basic out of stock of coke
+Given coke is not in stock
+When the Customer deposits 1.25
+When the Customer presses the buy coke button
+Then the machine should not dispense

@@ -23,6 +23,10 @@ public class PurchasingScenarioSteps {
     public void setInStock(String product) {
     }
 
+    @Given("$product is not in stock")
+    public void setNotInStock(String product) {
+    }
+
     @When("the Customer deposits $amount")
     public void deposit(double amount) {
         _amount = amount;
