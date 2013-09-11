@@ -9,6 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 import com.macadamian.jbehave_tutorial.Machine;
 import com.macadamian.jbehave_tutorial.Product;
@@ -16,12 +17,10 @@ import com.macadamian.jbehave_tutorial.Product;
 public class PurchasingScenarioSteps {
     private Machine _machine = new Machine();
     private Product _result;
-    private String _product;
     private double _amount;
 
     @Given("$product is in stock")
     public void setInStock(String product) {
-        _product = product;
     }
 
     @When("the Customer deposits $amount")
@@ -29,9 +28,9 @@ public class PurchasingScenarioSteps {
         _amount = amount;
     }
 
-    @When("the Customer presses the buy button")
-    public void pressedBuy() {
-        _result = _machine.buy(_product, _amount);
+    @When("the Customer presses the buy $product button")
+    public void pressedBuy(String product) {
+        _result = _machine.buy(product, _amount);
     }
 
     @Then("the machine should dispense $expectedProduct")
@@ -39,4 +38,9 @@ public class PurchasingScenarioSteps {
         assertThat(_result, is(notNullValue()));
         assertThat(_result.name(), is(equalTo(expectedProduct)));
     }
+
+    @Then("the machine should not dispense")
+    public void verifyNoProduct() {
+        assertThat(_result, is(nullValue()));
+    }        
 }
