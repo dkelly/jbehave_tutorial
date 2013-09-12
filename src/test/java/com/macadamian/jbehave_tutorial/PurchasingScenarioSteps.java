@@ -1,9 +1,9 @@
 package com.macadamian.jbehave_tutorial;
 
 import org.jbehave.core.annotations.Given;
-import org.jbehave.core.annotations.Named;
 import org.jbehave.core.annotations.Then;
 import org.jbehave.core.annotations.When;
+import org.jbehave.core.annotations.Alias;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,12 +21,21 @@ public class PurchasingScenarioSteps {
 
     @Given("$product is in stock")
     public void setInStock(String product) {
-        _machine.stock(product, true);
+        _machine.stock(product, 1);
+    }
+
+    @Given("$product is in stock of quantity $quantity")
+    public void setInStock(String product, int quantity) {
+        _machine.stock(product, quantity);
     }
 
     @Given("$product is not in stock")
     public void setNotInStock(String product) {
-        _machine.stock(product, false);
+        _machine.stock(product, 0);
+    }
+
+    @Given("<product> is in stock of quantity <quantity>")
+    public void setQuantity(String product, int quantity) {
     }
 
     @When("the Customer deposits $amount")
@@ -41,8 +50,12 @@ public class PurchasingScenarioSteps {
 
     @Then("the machine should dispense $expectedProduct")
     public void verifyProduct(String expectedProduct) {
-        assertThat(_result, is(notNullValue()));
-        assertThat(_result.name(), is(equalTo(expectedProduct)));
+        if ("none".equals(expectedProduct)) {
+            verifyNoProduct();
+        } else {
+            assertThat(_result, is(notNullValue()));
+            assertThat(_result.name(), is(equalTo(expectedProduct)));
+        }
     }
 
     @Then("the machine should not dispense")

@@ -7,6 +7,7 @@ import org.jbehave.core.junit.JUnitStory;
 import org.jbehave.core.reporters.StoryReporterBuilder;
 import org.jbehave.core.steps.CandidateSteps;
 import org.jbehave.core.steps.InstanceStepsFactory;
+import org.jbehave.core.steps.ParameterControls;
 
 import static org.jbehave.core.reporters.Format.ANSI_CONSOLE;
 import static org.jbehave.core.reporters.Format.TXT;
@@ -19,11 +20,12 @@ public class PurchasingScenario extends JUnitStory {
         return new MostUsefulConfiguration()
                 // location of narratives
                 .useStoryLoader(new LoadFromClasspath(this.getClass()))
+                .useParameterControls(new ParameterControls().useDelimiterNamedParameters(true))
                 // report to console and text file
                 .useStoryReporterBuilder(
                     new StoryReporterBuilder().withDefaultFormats().withFormats(ANSI_CONSOLE, TXT));
-//                        StoryReporterBuilder.Format.HTML,
-//                        StoryReporterBuilder.Format.XML
+        //                        StoryReporterBuilder.Format.HTML,
+        //                        StoryReporterBuilder.Format.XML
     }
 
     @Override
