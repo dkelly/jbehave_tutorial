@@ -31,3 +31,15 @@ Given coke is not in stock
 When the Customer deposits 1.25
 When the Customer presses the buy coke button
 Then the machine should not dispense
+
+Scenario: Get change
+Given coke is in stock
+When the Customer deposits 2.00
+When the Customer presses the buy coke button
+Then the machine should dispense coke
+Then the machine should return 0.75
+When the Customer deposits 1.50
+When the Customer presses the buy coke button
+Then the machine should dispense coke
+Then the machine should return 0.25
+

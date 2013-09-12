@@ -9,6 +9,7 @@ public class Machine {
     }
 
     private HashMap<String, Info> _stock = new HashMap<String, Info>();
+    private double _current_change;
 
     public Machine() {
         _stock.put("coke", new Info() {{ price = 1.25; }});
@@ -28,9 +29,14 @@ public class Machine {
             Info i = _stock.get(name);
             if (i.stocked && amount >= i.price) {
                 rv = new Product(name);
+                _current_change = amount - i.price;
             }
         }
         
         return rv;
+    }
+
+    public double current_change() {
+        return _current_change;
     }
 }

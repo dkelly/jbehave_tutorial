@@ -49,4 +49,9 @@ public class PurchasingScenarioSteps {
     public void verifyNoProduct() {
         assertThat(_result, is(nullValue()));
     }        
+
+    @Then("the machine should return $change")
+    public void verifyChange(double change) {
+        assertThat(_machine.current_change(), is(equalTo(change)));
+    }
 }
